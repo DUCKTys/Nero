@@ -1,4 +1,3 @@
-
 import fg from 'api-dylux'
 import { youtubedl, youtubedlv2 } from '@bochilteam/scraper-sosmed'
 let limit = 350 
@@ -16,14 +15,14 @@ let handler = async (m, { conn, args, isPrems, isOwner, usedPrefix, command }) =
 		const size = await yt.video[q].fileSizeH 
 		
        if (size.split('MB')[0] >= limit) return m.reply(` ≡  *PLAY YTDL*\n\n▢ *⚖️Size* : ${size}\n▢ *🎞️Kualitas* : ${q}\n\n▢ _File melebihi batas unduhan_ *+${limit} MB*`)    
-	  conn.sendFile(m.chat, dl_url, title + '.mp4', `
+	  conn.sendFile(m.chat, dl_url, title + 'yt.mp4', `
  ≡  *PLAY YTDL*
   
 ▢ *📌Titel* : ${title}
 ▢ *📟 Ext* : mp4
 ▢ *🎞️Kualitas* : ${q}
 ▢ *⚖️Size* : ${size}
-`.trim(), m, false, { asDocument: chat.useDocument })
+`.trim(), m)
 		m.react(done) 
 		
 	} catch {
