@@ -26,6 +26,8 @@ let handler = async (m, { conn, text, args, isPrems, isOwner, usedPrefix, comman
 ▢ 📆 *Diterbitkan:* ${vid.ago}
 ▢ ⌚ *Durasi:* ${vid.timestamp}
 ▢ 👀 *Dilihat:* ${vid.views}
+▢ *🎞️Kualitas* : ${q}
+▢ *⚖️Size* : ${size}
 └──────────────
 
 _Mengirim..._`
@@ -35,12 +37,12 @@ conn.sendMessage(m.chat, {
 text: play,
 contextInfo: {
 externalAdReply: {
-title: nans,
+title: 'YOUTUBE PLAY',
 body: '',
 thumbnailUrl: vid.thumbnail,
 sourceUrl: '',
 mediaType: 1,
-renderLargerThumbnail: true
+renderLargerThumbnail: false
 }}})
 
 if (size.split('MB')[0] >= limit) return m.reply(` ≡  *PLAY YTDL*\n\n▢ *⚖️Size* : ${size}\n▢ *🎞️Kualitas* : ${q}\n\n▢ _File melebihi batas unduhan_ *+${limit} MB*`) 
@@ -48,10 +50,8 @@ if (size.includes('GB')) return m.reply(` ≡  *PLAY YTDL*\n\n▢ *⚖️Size* :
 	  conn.sendFile(m.chat, dl_url, title + '.mp' + (3 + /vid$/.test(command)), `
  ≡  *PLAY YTDL*
   
-▢ *📌Titel* : ${title}
-▢ *🎞️Kualitas* : ${q}
-▢ *⚖️Size* : ${size}
-`.trim(), m, false, { mimetype: isVideo ? '' : 'audio/mpeg', asDocument: chat.useDocument })
+
+`.trim(), m)
 		m.react(done) 
     } catch {
 		m.reply(`Kesalahan: Coba lagi`)
