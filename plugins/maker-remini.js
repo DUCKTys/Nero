@@ -1,34 +1,143 @@
-/*
-Thanks To Tio
-*/
+import FormData from "form-data";
+import Jimp from "jimp";
 
-import fetch from 'node-fetch';
-import uploadImage from '../lib/uploadImage.js';
-
-async function handler(m, { conn, usedPrefix, command }) {
-  try {
-    const q = m.quoted ? m.quoted : m;
-    const mime = (q.msg || q).mimetype || q.mediaType || '';
-    if (/^image/.test(mime) && !/webp/.test(mime)) {
-      const img = await q.download();
-      const out = await uploadImage(img);
-      const api = await fetch(API('lann', '/api/tools/remini', { url: `${out}`, apikey: lann }));
-       const image = await api.json();
-       const { url } = image 
-       conn.sendFile(m.chat, url, null, nans, m);
-    } else {
-      m.reply(`Kirim gambar dengan caption *${usedPrefix + command}* atau tag gambar yang sudah dikirim.`);
-    }
-  } catch (e) {
-    console.error(e);
-    m.reply(`Identifikasi gagal. Silakan coba lagi.`);
-  }
+async function processing(urlPath, method) {
+	return new Promise(async (resolve, reject) => {
+		let Methods = ["enhance", "recolor", "dehaze"];
+		Methods.includes(method) ? (method = method) : (method = Methods[0]);
+		let buffer,
+			Form = new FormData(),
+			scheme = "https" + "://" + "inferenceengine" + ".vyro" + ".ai/" + method;
+		Form.append("model_version", 1, {
+			"Content-Transfer-Encoding": "binary",
+			contentType: "multipart/form-data; charset=uttf-8",
+		});
+		Form.append("image", Buffer.from(urlPath), {
+			filename: "enhance_image_body.jpg",
+			contentType: "image/jpeg",
+		});
+		Form.submit(
+			{
+				url: scheme,
+				host: "inferenceengine" + ".vyro" + ".ai",
+				path: "/" + method,
+				protocol: "https:",
+				headers: {
+					"User-Agent": "okhttp/4.9.3",
+					Connection: "Keep-Alive",
+					"Accept-Encoding": "gzip",
+				},
+			},
+			function (err, res) {
+				if (err) reject();
+				let data = [];
+				res
+					.on("data", function (chunk, resp) {
+						data.push(chunk);
+					})
+					.on("end", () => {
+						resolve(Buffer.concat(data));
+					});
+				res.on("error", (e) => {
+					reject();
+				});
+			}
+		);
+	});
 }
-
-handler.help = ['remini'];
-handler.tags = ['maker'];
-handler.command = ['remini'];
-handler.premium = false;
-handler.limit = false;
-
-export default handler
+let handler = async (m, { conn, usedPrefix, command }) => {
+	switch (command) {
+		case "enhancer":
+		case "unblur":
+		case "enhance":
+			{
+				conn.enhancer = conn.enhancer ? conn.enhancer : {};
+				if (m.sender in conn.enhancer)
+					throw "_Masih Ada Proses Yang Belum Selesai, Silahkan Tunggu Sampai Selesai..._";
+				let q = m.quoted ? m.quoted : m;
+				let mime = (q.msg || q).mimetype || q.mediaType || "";
+				if (!mime)
+					throw `_Fotonya Mana?_`;
+				if (!/image\/(jpe?g|png)/.test(mime))
+					throw `Mime ${mime} tidak support`;
+				else conn.enhancer[m.sender] = true;
+				m.reply("_Proses..._");
+				let img = await q.download?.();
+				let error;
+				try {
+					const This = await processing(img, "enhance");
+					conn.sendFile(m.chat, This, "", "_Finished_", m);
+				} catch (er) {
+					error = true;
+				} finally {
+					if (error) {
+						m.reply("Proses Gagal :(");
+					}
+					delete conn.enhancer[m.sender];
+				}
+			}
+			break;
+		case "colorize":
+		case "colorizer":
+			{
+				conn.recolor = conn.recolor ? conn.recolor : {};
+				if (m.sender in conn.recolor)
+					throw "_Masih Ada Proses Yang Belum Selesai, Silahkan Tunggu Sampai Selesai..._";
+				let q = m.quoted ? m.quoted : m;
+				let mime = (q.msg || q).mimetype || q.mediaType || "";
+				if (!mime)
+					throw `_Fotonya mana?_`;
+				if (!/image\/(jpe?g|png)/.test(mime))
+					throw `Mime ${mime} tidak support`;
+				else conn.recolor[m.sender] = true;
+				m.reply("_Proses..._");
+				let img = await q.download?.();
+				let error;
+				try {
+					const This = await processing(img, "enhance");
+					conn.sendFile(m.chat, This, "", "_Finished_", m);
+				} catch (er) {
+					error = true;
+				} finally {
+					if (error) {
+						m.reply("Proses Gagal :(");
+					}
+					delete conn.recolor[m.chat];
+				}
+			}
+			break;
+		case "hd":
+		case "hdr":
+			{
+				conn.hdr = conn.hdr ? conn.hdr : {};
+				if (m.sender in conn.hdr)
+					throw "_Masih Ada Proses Yang Belum Selesai, Silahkan Tunggu Sampai Selesai..._";
+				let q = m.quoted ? m.quoted : m;
+				let mime = (q.msg || q).mimetype || q.mediaType || "";
+				if (!mime)
+					throw `_Fotonya Mana?_`;
+				if (!/image\/(jpe?g|png)/.test(mime))
+					throw `Mime ${mime} tidak support`;
+				else conn.hdr[m.sender] = true;
+				m.reply("_Proses..._");
+				let img = await q.download?.();
+				let error;
+				try {
+					const This = await processing(img, "enhance");
+					conn.sendFile(m.chat, This, "", "_Finished_", m);
+				} catch (er) {
+					error = true;
+				} finally {
+					if (error) {
+						m.reply("Proses Gagal :(");
+					}
+					delete conn.hdr[m.sender];
+				}
+			}
+			break;
+	}
+};
+handler.help = ["hd","colorize","unblur"];
+handler.tags = ["maker"];
+handler.command = ["hd","colorize","unblur"];
+export default handler;
