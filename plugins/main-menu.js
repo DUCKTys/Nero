@@ -152,7 +152,7 @@ contextInfo: {
 externalAdReply: {
 title: 'ᴍᴇɴᴜ',
 body: "",
-thumbnailUrl: thumb,
+thumbnailUrl: 'https://telegra.ph/file/287baf39c90619f2d046c.jpg',
 sourceUrl: 'ʙᴏᴛ ᴡʜᴀᴛsᴀᴘᴘ',
 mediaType: 1,
 renderLargerThumbnail: false
