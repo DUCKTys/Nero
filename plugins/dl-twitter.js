@@ -1,24 +1,29 @@
+let handler = async(m, {conn, command, usedPrefix, text}) => {
+  global.db.data.users[m.sender].catatan = global.db.data.users[m.sender].catatan || []
+  let i = 0
+  if (global.db.data.users[m.sender].catatan.length == 0) return m.reply('Kamu belum punya catatan!')
+  let txt = '🗒️Daftar catatan🗒️\n\n'
+  for (let ct in global.db.data.users[m.sender].catatan) {
+    i += 1
+    txt += '[' + i + ']. ' + global.db.data.users[m.sender].catatan[ct].title + '\n'
+  }
+  txt += `\nPenggunaan: ${usedPrefix}lihatcatatan 1\nHapus catatan: ${usedPrefix}hapuscatatan 1`
+  if (text.length == 0) return m.reply(txt)
+  let catatan = global.db.data.users[m.sender].catatan
+  let split = text.split('|')
+  if (catatan.length == 0) return m.reply('Kamu belum memiliki catatan!')
+  let n = Number(split[0]) - 1
 
-import fg from 'api-dylux'
-let handler = async (m, { conn, args, usedPrefix, command }) => {
-if (!args[0]) throw `📌 Contoh : \n*${usedPrefix + command}* https://twitter.com/gofoodindonesia/status/1229369819511709697`
-          m.react(rwait)    
-          try {
-          let { SD, HD, desc, thumb, audio } = await fg.twitter(args[0])
-          let te = ` 
-┌─⊷ *TWITTER DL*
-▢ Deskripsi: ${desc}
-└───────────`
-conn.sendFile(m.chat, HD, 'twitter.mp4', te, m)
-m.react(done)
-} catch (e) {
-  	m.reply(`✳️ memverifikasi bahwa tautan berasal dari Twitter`)
-	} 
-	
+  let isi = global.db.data.users[m.sender].catatan[n] != undefined ? global.db.data.users[m.sender].catatan[n].isi : 'Catatan tidak ditemukan!'
+conn.reply(m.chat, `${isi}`, m, false, {
+    contextInfo: {
+      mentionedJid: conn.parseMention(text)
+    }
+  })
 }
-handler.help = ['twitter'].map(v => v + ' <url>')
-handler.tags = ['dl']
-handler.command = /^(twitter|tw)$/i
-handler.diamond = true
+
+handler.help = ['lihatcatatan <title>']
+handler.tags = ['internet']
+handler.command = /^lihatcatatan|lc$/i
 
 export default handler
