@@ -39,11 +39,11 @@ global.nama = 'Esteh' // nama owner
 global.nomor = '6281359053674' // nomor owner
 global.nans = 'NANS OFFC' // nama bot 
 global.thumb = 'https://telegra.ph/file/a20c924a5f7e7953607aa.jpg' // thumbnail bot ( foto menu )
-global.dygp = 'https://chat.whatsapp.com' // link group yang ada di menu
+global.esteh = 'esteh' // link group yang ada di menu
 
 // Sticker wm
 global.packname = 'ᴮᴼᵀ┃Esteh' 
-global.author = '@Esteh' 
+global.author = '@ʙᴏᴛ_ᴡʜᴀᴛsᴀᴘᴘ' 
 global.fgig = 'https://www.instagram.com/' // bebas tapi jangan kosong 
 global.fgsc = 'https://github.com/' // bebas tapi jangan kosong
 global.fgyt = 'https://' // bebas tapi jangan kosong
