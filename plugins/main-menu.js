@@ -47,7 +47,7 @@ Ketik .owner untuk menghubungi pemilik bot (bukan bot) untuk menyewa atau menany
   header: '┏━━⊜ *_%category_* ━⊜',
   body: '┃⋄ %cmd %isdiamond %isPremium',
   footer: '┗━━━━━━━━⬣\n',
-  after: lastm,
+  after: 'ʙᴏᴛ ᴡʜᴀᴛsᴀᴘᴘ',
 }
 let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
   try {
