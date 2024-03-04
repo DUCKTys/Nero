@@ -18,19 +18,15 @@ let tags = {
   'prem': 'PREMIUM',
   'group': 'GROUP',
   'nable': 'EN/DS FITUR', 
-  'nime': 'ANIME',
-  'rnime': 'ANIME REACCION',
   'dl': 'DOWNLOADER',
   'tools': 'TOOLS',
   'fun': 'FUN',
   'cmd': 'DATABASE',
-  'nsfw': 'NSFW +18', 
-  'ansfw': 'NSFW ANIME',
   'owner': 'OWNER', 
   'advanced': 'ADVANCE',
 }
 const defaultMenu = {
-  before: `Halo Kak 👋. Saya adalah bot WhatsApp otomatis yang dapat membantu melakukan sesuatu, mencari dan mendapatkan data atau informasi melalui WhatsApp.
+  before: `*Saya adalah bot WhatsApp otomatis yang dapat membantu melakukan sesuatu, mencari dan mendapatkan data atau informasi melalui WhatsApp*
 
 ┏━⊜ Hai *%name* ━⊜
 父 *Level:* %level 
@@ -154,10 +150,10 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
 text: text,
 contextInfo: {
 externalAdReply: {
-title: nans,
+title: 'ᴍᴇɴᴜ',
 body: "",
 thumbnailUrl: thumb,
-sourceUrl: dygp,
+sourceUrl: 'ʙᴏᴛ ᴡʜᴀᴛsᴀᴘᴘ',
 mediaType: 1,
 renderLargerThumbnail: false
 }}}, { quoted: m})
@@ -192,4 +188,4 @@ function clockString(ms) {
   let m = isNaN(ms) ? '--' : Math.floor(ms / 60000) % 60
   let s = isNaN(ms) ? '--' : Math.floor(ms / 1000) % 60
   return [d, 'd ', h, 'h ', m, 'm '].map(v => v.toString().padStart(2, 0)).join('')
-}
+  }
