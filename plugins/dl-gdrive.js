@@ -1,27 +1,26 @@
-
-import fg from 'api-dylux'  
-let handler = async (m, { conn, args, usedPrefix, command }) => {
-
-	if (!args[0]) throw `✳️ Masukkan link Google Drive`
-	m.react(rwait) 
-	try {
-	let res = await fg.GDriveDl(args[0])
-	 await m.reply(`
-≡ *Google Drive DL*
-▢ *Nama:* ${res.fileName}
-▢ *Size:* ${res.fileSize}
-▢ *Type:* ${res.mimetype}`)
-		
-	conn.sendMessage(m.chat, { document: { url: res.downloadUrl }, fileName: res.fileName, mimetype: res.mimetype }, { quoted: m })
-	m.react(done)
-   } catch {
-	m.reply('Kesalahan: Periksa tautan atau coba tautan lain') 
+let handler = async(m, {conn, command, usedPrefix, text}) => {
+  let fail = 'format salah, example: ' +usedPrefix+command+ ' Bot|1. Masak'
+  global.db.data.users[m.sender].catatan = global.db.data.users[m.sender].catatan || []
+  let catatan = global.db.data.users[m.sender].catatan
+  let split = text.split('|')
+  let title = split[0]
+  let isi = split[1]
+  if (catatan.includes(title)) return m.reply('Judul tidak tersedia!\n\nAlasan: Sudah digunakan')
+  if (!title || !isi) return m.reply(fail)
+  let cttn = {
+    'title': title,
+    'isi': isi
   }
+  global.db.data.users[m.sender].catatan.push(cttn)
+  conn.reply(m.chat, `Catatan berhasil dibuat!\nUntuk melihat catatan. Ketik: ${usedPrefix}lihatcatatan`, m, false, {
+    contextInfo: {
+      mentionedJid: conn.parseMention(text)
+    }
+  })
 }
-handler.help = ['gdrive']
-handler.tags = ['dl', 'prem']
-handler.command = ['gdrive']
-handler.diamond = true
-handler.premium = true
+
+handler.help = ['buatcatatan <title|isi>']
+handler.tags = ['internet']
+handler.command = /^buatcatatan|bn$/i
 
 export default handler
