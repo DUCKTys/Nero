@@ -153,7 +153,7 @@ externalAdReply: {
 title: 'ᴍᴇɴᴜ',
 body: "",
 thumbnailUrl: 'https://telegra.ph/file/287baf39c90619f2d046c.jpg',
-sourceUrl: 'ʙᴏᴛ ᴡʜᴀᴛsᴀᴘᴘ',
+sourceUrl: 'https://m.mobilelegends.com/en',
 mediaType: 1,
 renderLargerThumbnail: false
 }}}, { quoted: m})
