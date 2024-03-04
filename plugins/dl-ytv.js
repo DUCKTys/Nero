@@ -19,7 +19,6 @@ let handler = async (m, { conn, args, isPrems, isOwner, usedPrefix, command }) =
  ≡  *PLAY YTDL*
   
 ▢ *📌Titel* : ${title}
-▢ *📟 Ext* : mp4
 ▢ *🎞️Kualitas* : ${q}
 ▢ *⚖️Size* : ${size}
 `.trim(), m)
