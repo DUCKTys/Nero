@@ -10,7 +10,8 @@ import chalk from 'chalk'
 import { fileURLToPath } from 'url'
 
 global.owner = [
-  ['6281359053674', 'esteh', true],
+  ['6281359053674', 'esteh', true]
+  ]
 
 global.mods = ['6281359053674'] 
 global.prems = ['6281359053674']
