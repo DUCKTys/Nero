@@ -11,11 +11,9 @@ import { fileURLToPath } from 'url'
 
 global.owner = [
   ['6281359053674', 'esteh', true],
-  ['6285880029379']
-] // Nomor Owner
 
 global.mods = ['6281359053674'] 
-global.prems = ['6285174306183', '6285880029379']
+global.prems = ['-']
 
 // apikey
 global.lann = 'NrVDZkbl'
