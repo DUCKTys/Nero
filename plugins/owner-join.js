@@ -28,27 +28,27 @@ let handler = async (m, { conn, text, usedPrefix, command, args, participants, i
   else global.db.data.chats[res].expired = now + nDays
   if (e.length) await m.reply(`✅ Saya berhasil bergabung dengan grup\n\n≡ Info grup\n\n *Nama :* ${await conn.getName(res)}\n\nBot akan keluar secara otomatis setelah \n\n${msToDate(global.db.data.chats[res].expired - now)}`)
  
- if (e.length) await conn.reply(res, `🏮 Halo shavals
+ if (e.length) await conn.reply(res, `🏮 Hallo
 
-@${owbot} es mi creador  si tiene alguna duda
+@${owbot} Dia adalah pencipta saya jika Anda memiliki pertanyaan
 fui invitado por *${m.name}*`, m, {
     mentions: d
      }).then(async () => {
      await delay(7000)
      }).then( async () => {
-     await conn.reply(res, `Oke semua santai 🤭`, 0)
+     await conn.reply(res, `🗿`, 0)
      await conn.reply(global.owner[1]+'@s.whatsapp.net', `≡ *UNDANGAN GRUP*\n\n@${m.sender.split('@')[0]} telah mengundang *${conn.user.name}* ke grup\n\n*${await conn.getName(res)}*\n\n*ID* : ${res}\n\n📌 Tautan : ${args[0]}\n\nBot akan keluar secara otomatis setelah \n\n${msToDate(global.db.data.chats[res].expired - now)}`, null, {mentions: [m.sender]})
      })
      if (!e.length) await conn.reply(global.owner[1]+'@s.whatsapp.net', `≡ *UNDANGAN GRUP*\n\n@${m.sender.split('@')[0]} telah mengundang *${conn.user.name}* ke grup\n\n*${await conn.getName(res)}*\n\n*ID* : ${res}\n\n📌 Tautan : ${args[0]}\n\nBot akan keluar secara otomatis setelah\n\n ${msToDate(global.db.data.chats[res].expired - now)}`, null, {mentions: [m.sender]})
      if (!e.length) await m.reply(`✳️ Berhasil mengundang bot ke grup\n\n${await conn.getName(res)}\n\nBot akan keluar secara otomatis setelah *${msToDate(global.db.data.chats[res].expired - now)}*`).then(async () => {
      let mes = `Halo semuanya 👋🏻
      
-*${conn.user.name}* es uno de los bots multidispositivo de WhatsApp construido con Node.js, *${conn.user.name}* Recién invitado por *${m.name}*
+*${conn.user.name}* bot whatsapp Node.js, *${conn.user.name}* Baru saja diundang oleh *${m.name}*
 
 para ver el Menu del bot escribe
 
 ${usedPrefix}help
-@${conn.user.jid.split('@')[0]} saldrá automáticamente después de \n\n${msToDate(global.db.data.chats[res].expired - now)}`
+@${conn.user.jid.split('@')[0]} akan keluar secara otomatis setelahnya \n\n${msToDate(global.db.data.chats[res].expired - now)}`
   await conn.reply(res, mes, m, {
         mentions: d
          })
