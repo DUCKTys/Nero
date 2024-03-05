@@ -13,7 +13,8 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
     
     ${msToDate(global.db.data.chats[who].expired - now)}
 
-  _Despues el bot saldrá automáticamente del grupo_`) 
+ 
+_Kemudian bot akan otomatis keluar dari grup_`) 
     
 }
 handler.help = ['checkexpired']
