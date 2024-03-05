@@ -13,7 +13,7 @@ global.owner = [
   ['6281359053674', 'esteh', true],
 
 global.mods = ['6281359053674'] 
-global.prems = ['-']
+global.prems = ['6281359053674']
 
 // apikey
 global.lann = 'NrVDZkbl'
